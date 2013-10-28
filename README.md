@@ -8,11 +8,13 @@
 (ns example
  (:require one-of.core))
  
- (boolean (#{1 2 3} (one-of.core/one-of [1 2 3])))
- ;; => true
+(boolean (#{1 2 3} (one-of.core/one-of [1 2 3])))
+;; => true
  
 (repeatedly 3 #(one-of.core/one-of #"[a-z]{1,3}"))
 ;; => ("hz" "vyx" "ji")
+
+(defn third [x] (nth x 2))
 
 (->> (repeatedly #(one-of.core/funcall * (range 10) (range 10)))
      (filter #(= (third %) 81))
