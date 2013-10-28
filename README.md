@@ -16,6 +16,7 @@
 
 (->> (repeatedly #(one-of.core/funcall * (range 10) (range 10)))
      (filter #(= (third %) 81))
+	 first
      second)
 ;; => [9 9]
 ```

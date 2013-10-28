@@ -20,13 +20,14 @@
       (dotimes [_ 10] (is (one-of x) (one-of x)))))
 
   (testing "one-of/const"
-    (is [1 2] (one-of (const [1 2])))
-    (is #"ab" (one-of #"ab")))
+    (is (= [1 2] (one-of (const [1 2]))))
+    (is (instance? java.util.regex.Pattern (one-of (const #"ab")))))
   
   (testing "one-of/funcall"
     (dotimes [_ 10]
       (is (#{"13" "14" "23" "24"} (third (funcall str [1 2] [3 4])))))
-    (is [9 9]
-        (->> (repeatedly #(funcall * (range 10) (range 10)))
-             (filter #(= (third %) 81))
-             second))))
+    (is (= [9 9]
+           (->> (repeatedly #(funcall * (range 10) (range 10)))
+                (filter #(= (third %) 81))
+                first
+                second)))))
